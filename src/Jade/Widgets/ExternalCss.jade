@@ -1,0 +1,9 @@
+// Внешние css файлы
+-var minFiles = locals.production? '.min':''
+if viewTpl == 'ErrorPage'
+	link(rel="stylesheet", property="stylesheet", href="css/error"+minFiles+".css")
+else
+	link(rel="stylesheet", property="stylesheet", href="css/components"+minFiles+".css")
+	link(rel="stylesheet", property="stylesheet", href="css/style"+minFiles+".css")
+	link(rel="stylesheet", property="stylesheet", href="css/responsive"+minFiles+".css")
+='\n'

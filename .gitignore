@@ -1,0 +1,6 @@
+.idea/
+node_modules/
+dist/
+.editorconfig
+gulpfile.js
+package.json

@@ -1,0 +1,17 @@
+﻿//- подключение внешних css файлов
+block FooterExternalCss
+//- подключение внешних js файлов
+block FooterExternalJs
+
+= '\n'
+
+//- доп. блок
+block bottomBlock
+	//- подключение внешних css файлов
+	block bottomExternalCss
+		if viewTpl == 'ErrorPage'
+			include ExternalCss
+	//- подключение внешних js файлов
+	block bottomExternalJs
+		if viewTpl == 'ErrorPage'
+			include ExternalJs

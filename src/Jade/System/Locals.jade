@@ -1,0 +1,199 @@
+﻿-
+	// корневой файл сайта
+	var LOCALS = locals;
+	
+	LOCALS.rootfile = 'index';
+
+	// список файлов(страниц) в верстке
+	LOCALS.files = {
+		index: {
+			// текст заголовка страници
+			title: 'Главная страница',
+			// текст пункта в хлебных крошках, если не указан используеться title
+			breadcrumbs: 'Главная'
+		},
+		ui_text: {
+			title: 'UI Текстовая страница',
+			breadcrumbs: 'Пример типографии сайта',
+			// предыдущий элемента в хлебных крошках
+			parent: 'index'
+		},
+		ui_elements: {
+			title: 'UI Элементы',
+			parent: 'ui_text'
+		},
+		ui_forms: {
+			title: 'UI Формы',
+			parent: 'ui_text'
+		},
+		ui_svg: {
+			title: 'UI SVG Sprite',
+			parent: 'ui_elements'
+		},
+		sitemap: {
+			title: 'Карта сайта',
+			parent: 'index'
+		},
+		'404': {
+			title: 'Ошибка 404 | Cтраница не найдена'
+		}
+	};	
+
+	// дерево зависомостей главного меню
+	LOCALS.mainMenu = [
+		{
+			// имя пункта меню (он же текст который будет использоваться)
+			name: 'Главная',
+			// ключ на основе которого будет создан пункт меню
+			alias: 'index'
+		}, {
+			name: 'UI Раздел',
+			alias: 'ui_text',
+			// уровень вложености для пункта меню
+			children: [
+				{
+					name: 'UI Текстовая страница',
+					alias: 'ui_text'
+				}, {
+					name: 'UI Элементы',
+					alias: 'ui_elements'
+				}, {
+					name: 'UI Формы',
+					alias: 'ui_forms'
+				}, {
+					name: 'UI SVG Sprite',
+					alias: 'ui_svg'
+				}
+			]
+		}, {
+			name: 'Карта сайта',
+			alias: 'sitemap'
+		}
+	];
+
+	// дерево карты сайта
+	LOCALS.sitemap = LOCALS.mainMenu.concat([
+		{
+			name: 'Раздел 1',
+			alias: 'sitemap',
+			children: [
+				{
+					name: 'Категория 1',
+					alias: 'sitemap',
+					children: [
+						{
+							name: 'Подкатегория 1',
+							alias: 'sitemap',
+							children: [
+								{
+									name: 'Внутрення категория 1',
+									alias: 'sitemap',
+									children: [
+										{
+											name: 'Статья 1',
+											alias: 'sitemap'
+										}, {
+											name: 'Статья 2',
+											alias: 'sitemap'
+										}, {
+											name: 'Статья 3',
+											alias: 'sitemap'
+										}
+									]
+								}, {
+									name: 'Внутрення категория 2',
+									alias: 'sitemap',
+									children: [
+										{
+											name: 'Статья 1',
+											alias: 'sitemap'
+										}, {
+											name: 'Статья 2',
+											alias: 'sitemap'
+										}, {
+											name: 'Статья 3',
+											alias: 'sitemap'
+										}
+									]
+								}, {
+									name: 'Внутрення категория 3',
+									alias: 'sitemap'
+								}
+							]
+						}, {
+							name: 'Подкатегория 2',
+							alias: 'sitemap'
+						}, {
+							name: 'Подкатегория 3',
+							alias: 'sitemap'
+						}
+					]
+				}, {
+					name: 'Категория 2',
+					alias: 'sitemap',
+					children: [
+						{
+							name: 'Статья 1',
+							alias: 'sitemap'
+						}, {
+							name: 'Статья 2',
+							alias: 'sitemap'
+						}
+					]
+				}, {
+					name: 'Категория 3',
+					alias: 'sitemap',
+					children: [
+						{
+							name: 'Статья 1',
+							alias: 'sitemap'
+						}, {
+							name: 'Статья 2',
+							alias: 'sitemap'
+						}, {
+							name: 'Статья 3',
+							alias: 'sitemap'
+						}
+					]
+				}, {
+					name: 'Категория 4',
+					alias: 'sitemap',
+					children: [
+						{
+							name: 'Статья 1',
+							alias: 'sitemap'
+						}
+					]
+				}
+			]
+		}, {
+			name: 'Раздел 2',
+			alias: 'sitemap'
+		}, {
+			name: 'Раздел 3',
+			alias: 'sitemap'
+		}
+	]);
+
+	/*
+		Дописываем каждому объекту в ветке LOCALS.files
+		свойства alias, link на основе имени объекта
+		и, если отсутствует, name из title
+	*/
+
+	function filesName() {
+		var root = LOCALS.rootfile;
+		for (var key in LOCALS.files) {
+			var branch = LOCALS.files[key];
+			branch.alias = key;
+			branch.link = key + '.html';
+			if (typeof branch.name === 'undefined') {
+				branch.name = branch.title;
+			}
+			if (typeof branch.breadcrumbs === 'undefined') {
+				branch.breadcrumbs = branch.title;
+			}
+		}
+	}
+	
+	filesName();

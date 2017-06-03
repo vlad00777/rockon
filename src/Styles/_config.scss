@@ -1,0 +1,97 @@
+// шрифты
+$fontFamily: 'Avenir Next Cyr',sans-serif;
+
+// цвета
+
+
+// миксины
+
+@mixin placeholder() {
+	&::-webkit-input-placeholder {@content}
+	&:-moz-placeholder           {@content}
+	&::-moz-placeholder          {@content}
+	&:-ms-input-placeholder      {@content}
+	&:focus{
+		&::-webkit-input-placeholder {color:transparent !important;}
+		&:-moz-placeholder           {color:transparent !important;}
+		&::-moz-placeholder          {color:transparent !important;}
+		&:-ms-input-placeholder      {color:transparent !important;}
+	}
+}
+
+@mixin vertical-center {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+@mixin horizontal-center {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+@mixin absolute-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+@mixin clearfix {
+	&::before,
+	&::after {
+		display: table;
+		content: ' ';
+	}
+	&::after {
+		clear: both;
+	}
+}
+@mixin css-triangle(
+	$triangle-size,
+	$triangle-color,
+	$triangle-direction
+) {
+	display: block;
+	width: 0;
+	height: 0;
+
+	border: inset $triangle-size;
+
+	content: '';
+
+	@if ($triangle-direction == down) {
+		border-bottom-width: 0;
+		border-top-style: solid;
+		border-color: $triangle-color transparent transparent;
+	}
+	@if ($triangle-direction == up) {
+		border-top-width: 0;
+		border-bottom-style: solid;
+		border-color: transparent transparent $triangle-color;
+	}
+	@if ($triangle-direction == right) {
+		border-right-width: 0;
+		border-left-style: solid;
+		border-color: transparent transparent transparent $triangle-color;
+	}
+	@if ($triangle-direction == left) {
+		border-left-width: 0;
+		border-right-style: solid;
+		border-color: transparent $triangle-color transparent transparent;
+	}
+}
+
+@mixin breakpoint($point) {
+	@if $point == big {
+		@media (max-width: 1200px) { @content ; }
+	}
+	@else if $point == medium {
+		@media (max-width: 1024px) { @content ; }
+	}
+	@else if $point == small {
+		@media (max-width: 770px) { @content ; }
+	}
+	@else if $point == msmall {
+		@media (max-width: 440px)  { @content ; }
+	}
+}
+

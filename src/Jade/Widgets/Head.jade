@@ -1,0 +1,54 @@
+﻿meta(charset="utf-8")
+meta(http-equiv="X-UA-Compatible" content="IE=edge")
+block pageTitle
+		title= fileTitle + ' | Верстка '
+meta(name="description" lang="ru-ru" content="")
+meta(name="keywords" lang="ru-ru" content="")
+meta(name="keywords" lang="en-us" content="")
+meta(name="author" lang="ru-ru" content="")
+= '\n'
+
+// Open Graph 
+meta(property="og:title" content="Заголовок страницы")
+meta(property="og:type" content="website")
+meta(property="og:site_name" content="site.com")
+meta(property="og:url" content="http://site.com/current-page")
+meta(property="og:image", content=LOCALS.media + "images/site-image.jpg")
+meta(property="og:description" content="краткий текст (новости, товара и т.д)")
+= '\n'
+
+// Touch 
+meta(name="format-detection" content="telephone=no")
+meta(name="format-detection" content="address=no")
+= '\n'
+
+if locals.responsive
+		//Responsive
+		meta(name="HandheldFriendly" content="True")
+		meta(name="MobileOptimized" content="320")
+		meta(name="apple-mobile-web-app-capable" content="yes")
+		meta(name="viewport" content="target-densitydpi=device-dpi")
+		meta(name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no")
+else
+		//Not responsive
+		meta(name="viewport" content="width=1000")
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+
+= '\n'
+
+// saved from url=(0014)about:internet 
+='\n\t\t'
+<!--[if IE]><meta http-equiv="imagetoolbar" content="no"><![endif]-->
+='\n\t\t'
+<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+= '\n'
+
+
+//- подключение внешних css файлов
+block HeadExternalCss
+		if viewTpl == 'Base'
+				include ExternalCss
+//- подключение внешних js файлов
+block HeadExternalJs
+		if viewTpl == 'Base'
+				include ExternalJs

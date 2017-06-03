@@ -1,0 +1,31 @@
+mixin menuLink(element)
+	-var elementLink = '#'
+	if LOCALS.files[element.alias]
+		-elementLink = LOCALS.files[element.alias].link
+	a(href=elementLink): span= element.name
+
+mixin menuList(arrayElements, arrayPath, activeInherit, arrayIgnore)
+	-var pathArray = arrayPath || []
+	-var ignoreArray = arrayIgnore || []
+	-var activeClassName = activeClass
+	ul
+		each element, i in arrayElements
+			-var accept = true
+			for ignore in ignoreArray
+				if ignore == element.name
+					-accept = false
+			if accept
+				-var activeClass = {}
+				-var inherit = false
+				if activeInherit
+					each path, j in pathArray
+						if path == element.name
+							-inherit = true
+							-activeClass = {class: activeClassName}
+				if element.children
+					li.haveSubMenu&attributes(activeClass)
+						+menuLink(element)
+						+menuList(element.children, pathArray, inherit, ignoreArray)
+				else 
+					li&attributes(activeClass)
+						+menuLink(element)
